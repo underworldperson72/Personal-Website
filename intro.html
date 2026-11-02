@@ -1,0 +1,487 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>My Intro Website</title>
+  <style>
+    :root {
+      --bg: #0d1117;
+      --bg-soft: #121a24;
+      --panel: rgba(18, 24, 33, 0.8);
+      --text: #e6edf3;
+      --muted: #9aa9b8;
+      --primary: #7c9cff;
+      --primary-2: #8ef0d1;
+      --border: rgba(255,255,255,0.08);
+      --shadow: rgba(0,0,0,0.25);
+      --card: rgba(255,255,255,0.03);
+      --button: #eef4ff;
+      --button-text: #0d1117;
+    }
+
+    body.light {
+      --bg: #f5f7fb;
+      --bg-soft: #eef3ff;
+      --panel: rgba(255,255,255,0.8);
+      --text: #1b2430;
+      --muted: #607085;
+      --primary: #496bff;
+      --primary-2: #1bbd9b;
+      --border: rgba(0,0,0,0.08);
+      --shadow: rgba(60,80,120,0.12);
+      --card: rgba(255,255,255,0.8);
+      --button: #111827;
+      --button-text: #ffffff;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      margin: 0;
+      font-family: Arial, Helvetica, sans-serif;
+      background:
+        radial-gradient(circle at top left, rgba(124,156,255,0.18), transparent 35%),
+        radial-gradient(circle at bottom right, rgba(142,240,209,0.12), transparent 30%),
+        var(--bg);
+      color: var(--text);
+      transition: background 0.35s ease, color 0.35s ease;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    .container {
+      width: min(1100px, 90%);
+      margin: 0 auto;
+    }
+
+    .topbar {
+      position: sticky;
+      top: 18px;
+      z-index: 20;
+      padding-top: 18px;
+    }
+
+    .nav-dock {
+      width: min(760px, 90%);
+      margin: 0 auto;
+      background: var(--panel);
+      border: 1px solid var(--border);
+      border-radius: 999px;
+      box-shadow: 0 18px 35px var(--shadow);
+      backdrop-filter: blur(14px);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 10px;
+      padding: 12px 18px;
+      flex-wrap: wrap;
+    }
+
+    .nav-dock a {
+      padding: 12px 18px;
+      border-radius: 999px;
+      color: var(--muted);
+      font-size: 0.95rem;
+      transition: 0.25s ease;
+    }
+
+    .nav-dock a.active,
+    .nav-dock a:hover {
+      background: rgba(124,156,255,0.12);
+      color: var(--text);
+    }
+
+    .theme-toggle {
+      border: none;
+      background: var(--button);
+      color: var(--button-text);
+      border-radius: 999px;
+      padding: 10px 14px;
+      font-weight: bold;
+      cursor: pointer;
+      margin-left: 8px;
+    }
+
+    .hero {
+      min-height: 72vh;
+      display: grid;
+      place-items: center;
+      padding: 40px 0 20px;
+    }
+
+    .hero-card {
+      background: var(--panel);
+      border: 1px solid var(--border);
+      border-radius: 28px;
+      box-shadow: 0 30px 60px var(--shadow);
+      padding: 46px 42px;
+      animation: fadeUp 0.8s ease-out;
+    }
+
+    @keyframes fadeUp {
+      from {
+        opacity: 0;
+        transform: translateY(12px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .eyebrow {
+      color: var(--primary-2);
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      font-size: 0.76rem;
+      font-weight: 700;
+      margin-bottom: 14px;
+    }
+
+    h1 {
+      font-size: clamp(2.5rem, 5vw, 5rem);
+      line-height: 1.05;
+      margin: 0 0 18px;
+    }
+
+    .lead {
+      max-width: 720px;
+      font-size: 1.1rem;
+      line-height: 1.8;
+      color: var(--muted);
+      margin: 0 0 28px;
+    }
+
+    .cta-row {
+      display: flex;
+      gap: 14px;
+      flex-wrap: wrap;
+      margin-bottom: 24px;
+    }
+
+    .btn {
+      display: inline-block;
+      padding: 14px 22px;
+      border-radius: 999px;
+      font-weight: 700;
+      transition: 0.25s ease;
+    }
+
+    .btn-primary {
+      background: linear-gradient(135deg, var(--primary), var(--primary-2));
+      color: #09121a;
+    }
+
+    .btn-secondary {
+      background: transparent;
+      border: 1px solid var(--border);
+      color: var(--text);
+    }
+
+    .btn:hover {
+      transform: translateY(-2px);
+    }
+
+    .meta-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(180px, 1fr));
+      gap: 18px;
+      margin-top: 26px;
+    }
+
+    .meta-box, .card, .info-box, .text-block {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 22px;
+      padding: 22px;
+    }
+
+    .meta-box h3, .card h3, .info-box h3 {
+      margin: 0 0 8px;
+      font-size: 1.05rem;
+    }
+
+    .meta-box p, .card p, .info-box p, .text-block p {
+      margin: 0;
+      color: var(--muted);
+      line-height: 1.7;
+    }
+
+    .section {
+      padding: 30px 0;
+    }
+
+    .section-head {
+      margin-bottom: 20px;
+    }
+
+    .section-head h2 {
+      font-size: clamp(2rem, 4vw, 2.8rem);
+      margin: 0 0 10px;
+    }
+
+    .section-head p {
+      margin: 0;
+      color: var(--muted);
+    }
+
+    .grid-3 {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(220px, 1fr));
+      gap: 20px;
+    }
+
+    .page-header {
+      padding: 40px 0 15px;
+    }
+
+    .page-header h1 {
+      font-size: clamp(2.2rem, 5vw, 3.5rem);
+      margin-bottom: 12px;
+    }
+
+    .contact-grid {
+      display: grid;
+      grid-template-columns: 1.1fr 0.9fr;
+      gap: 28px;
+    }
+
+    .form-group {
+      margin-bottom: 16px;
+    }
+
+    label {
+      display: block;
+      margin-bottom: 8px;
+      font-weight: 600;
+    }
+
+    input, textarea {
+      width: 100%;
+      background: rgba(255,255,255,0.02);
+      border: 1px solid var(--border);
+      color: var(--text);
+      border-radius: 16px;
+      padding: 14px 16px;
+      font: inherit;
+    }
+
+    textarea {
+      resize: vertical;
+      min-height: 140px;
+    }
+
+    ul.simple-list {
+      list-style: none;
+      padding: 0;
+      margin: 18px 0 0;
+    }
+
+    ul.simple-list li {
+      margin-bottom: 12px;
+      color: var(--muted);
+    }
+
+    .footer {
+      text-align: center;
+      color: var(--muted);
+      padding: 28px 0 40px;
+    }
+
+    @media (max-width: 700px) {
+      .nav-dock {
+        gap: 6px;
+        padding: 10px 12px;
+      }
+
+      .nav-dock a {
+        padding: 10px 12px;
+        font-size: 0.85rem;
+      }
+
+      .hero-card {
+        padding: 28px 22px;
+      }
+
+      .meta-grid, .grid-3, .contact-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header class="topbar">
+    <nav class="nav-dock" aria-label="Main navigation">
+      <a href="#home" class="active">Home</a>
+      <a href="#about">About</a>
+      <a href="#contact">Contact</a>
+      <a href="#terms">Terms</a>
+      <button class="theme-toggle" id="themeToggle" type="button">Light</button>
+    </nav>
+  </header>
+
+  <main>
+    <section class="hero" id="home">
+      <div class="container">
+        <div class="hero-card">
+          <div class="eyebrow">Welcome</div>
+          <h1>Building ideas for the future.</h1>
+          <p class="lead">
+            This is a simple introduction page for my future projects, creative work,
+            and digital ideas. It is designed to be elegant, modern, and easy to update later.
+          </p>
+
+          <div class="cta-row">
+            <a class="btn btn-primary" href="#about">Learn More</a>
+            <a class="btn btn-secondary" href="#contact">Get in Touch</a>
+          </div>
+
+          <div class="meta-grid">
+            <div class="meta-box">
+              <h3>Creative</h3>
+              <p>Thoughtful design with a clean, modern visual style.</p>
+            </div>
+            <div class="meta-box">
+              <h3>Minimal</h3>
+              <p>Simple layout that stays elegant without feeling crowded.</p>
+            </div>
+            <div class="meta-box">
+              <h3>Flexible</h3>
+              <p>Easy to edit when new projects and ideas are added.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="about">
+      <div class="container">
+        <div class="section-head">
+          <h2>About</h2>
+          <p>Designed as a clean introduction to my future work.</p>
+        </div>
+
+        <div class="grid-3">
+          <div class="card">
+            <h3>Portfolio</h3>
+            <p>Showcase upcoming work and projects in a neat and professional format.</p>
+          </div>
+
+          <div class="card">
+            <h3>Brand</h3>
+            <p>Keep a consistent and modern identity as new ideas start to grow.</p>
+          </div>
+
+          <div class="card">
+            <h3>Growth</h3>
+            <p>Build a strong base that can evolve with time and experience.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="contact">
+      <div class="container">
+        <div class="section-head">
+          <h2>Contact</h2>
+          <p>Let’s connect and talk about ideas.</p>
+        </div>
+
+        <div class="contact-grid">
+          <div class="text-block">
+            <h3>Get in touch</h3>
+            <p>
+              If you want to talk about a project, collaboration, or just say hello,
+              send a message and I’ll get back to you.
+            </p>
+
+            <ul class="simple-list">
+              <li>Email: hello@yourwebsite.com</li>
+              <li>Location: Your City</li>
+              <li>Availability: Open for new work</li>
+            </ul>
+          </div>
+
+          <div class="text-block">
+            <form>
+              <div class="form-group">
+                <label for="name">Name</label>
+                <input id="name" type="text" placeholder="Your name" />
+              </div>
+
+              <div class="form-group">
+                <label for="email">Email</label>
+                <input id="email" type="email" placeholder="you@example.com" />
+              </div>
+
+              <div class="form-group">
+                <label for="message">Message</label>
+                <textarea id="message" placeholder="Write your message..."></textarea>
+              </div>
+
+              <button class="btn btn-primary" type="submit">Send Message</button>
+            </form>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="terms">
+      <div class="container">
+        <div class="section-head">
+          <h2>Terms & Conditions</h2>
+          <p>Simple terms and basic usage information.</p>
+        </div>
+
+        <div class="text-block">
+          <p>
+            By using this website, you agree to use it in a respectful and lawful manner.
+            All content is intended for informational and introductory purposes.
+          </p>
+
+          <p>
+            This website may be updated or modified at any time as projects evolve.
+            Contact details and project information may change as new work is developed.
+          </p>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    © 2026 My Intro Website
+  </footer>
+
+  <script>
+    const body = document.body;
+    const toggleBtn = document.getElementById('themeToggle');
+
+    const savedTheme = localStorage.getItem('theme');
+
+    if (savedTheme === 'light') {
+      body.classList.add('light');
+      toggleBtn.textContent = 'Dark';
+    } else {
+      toggleBtn.textContent = 'Light';
+    }
+
+    toggleBtn.addEventListener('click', () => {
+      body.classList.toggle('light');
+
+      const isLight = body.classList.contains('light');
+      localStorage.setItem('theme', isLight ? 'light' : 'dark');
+      toggleBtn.textContent = isLight ? 'Dark' : 'Light';
+    });
+  </script>
+</body>
+</html>

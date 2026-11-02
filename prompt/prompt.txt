@@ -1,0 +1,6 @@
+Simple, elegant and modern website, simple fluid animations, not overdo, using HTML and CSS.
+It should be like a introductory website for my future projects.
+that can be manually altered when needed to change. The website should be dark themed preferred,
+would be nice if we have a option to switch b/w dark and light themes.
+It should have dock like menu, rounded edges, A nice welcome message.
+A home page, about us page, contact page and terms and conditions page.
